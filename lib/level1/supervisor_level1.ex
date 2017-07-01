@@ -6,7 +6,7 @@ defmodule ProcessesOfProcesses.Supervisor.Level1 do
   end
 
   def start_child do
-    Task.Supervisor.start_child(ProcessesOfProcesses.Supervisor.Element.Level1, fn ->
+    Task.Supervisor.async(ProcessesOfProcesses.Supervisor.Element.Level1, fn ->
       Supervisor.start_child __MODULE__, []
     end)
   end
