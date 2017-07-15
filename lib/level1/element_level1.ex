@@ -9,7 +9,8 @@ defmodule ProcessesOfProcesses.Element.Level1 do
   end
 
   def init(id) do
-    {:ok, %{id: id}}
+    {:ok, worker} = ProcessesOfProcesses.Worker.Level1.start_link id
+    {:ok, %{id: id, worker: worker}}
   end
 
 end
