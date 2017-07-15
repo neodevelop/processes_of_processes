@@ -1,12 +1,15 @@
 defmodule ProcessesOfProcesses.Element.Level1 do
 
-  def start_link do
-    IO.puts "Some processes client"
-    Agent.start_link(fn ->
-      IO.puts "Some processes server"
-      Process.sleep(3000)
-      %{}
-    end)
+  # GenServer Client API
+
+  # GenServer callbacks
+
+  def start_link(id, opts \\ []) do
+    GenServer.start_link __MODULE__, id, opts
+  end
+
+  def init(id) do
+    {:ok, %{id: id}}
   end
 
 end

@@ -1,14 +1,16 @@
 defmodule ProcessesOfProcesses.Supervisor.Level1 do
   use Supervisor
 
-  def start_link do
-    Supervisor.start_link __MODULE__, :ok, name: __MODULE__
+  ## Supervisor API
+
+  def new_process do
+    Supervisor.start_child __MODULE__, [:os.system_time(:millisecond)]
   end
 
-  def start_child do
-    Task.Supervisor.async(ProcessesOfProcesses.Supervisor.Element.Level1, fn ->
-      Supervisor.start_child __MODULE__, []
-    end)
+  ## Supervisor callbacks
+
+  def start_link() do
+    Supervisor.start_link __MODULE__, :ok, name: __MODULE__
   end
 
   def init(:ok) do
