@@ -4,7 +4,9 @@ defmodule ProcessesOfProcesses.Supervisor.Level1 do
   ## Supervisor API
 
   def new_process do
-    Supervisor.start_child __MODULE__, [:os.system_time(:millisecond)]
+    Task.Supervisor.async(ProcessesOfProcesses.Supervisor.Element.Level1, fn ->
+      Supervisor.start_child __MODULE__, [:os.system_time(:millisecond)]
+    end)
   end
 
   ## Supervisor callbacks
